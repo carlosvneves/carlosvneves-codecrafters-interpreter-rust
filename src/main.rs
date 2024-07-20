@@ -1,3 +1,4 @@
+use core::fmt;
 use std::env;
 use std::fs;
 use std::io::{self, Write};
@@ -11,6 +12,8 @@ fn main() {
 
     let command = &args[1];
     let filename = &args[2];
+
+    
 
     match command.as_str() {
         "tokenize" => {
@@ -26,7 +29,8 @@ fn main() {
             if !file_contents.is_empty() {
                 panic!("Scanner not implemented");
             } else {
-                println!("EOF  null"); // Placeholder, remove this line when implementing the scanner
+               tokenize(&file_contents); 
+
             }
         }
         _ => {
@@ -40,7 +44,50 @@ fn main() {
 
 enum Token{
     EOF,
-
-
+    RightParen,     
+    LeftParen,
+    // Dot,
+    // Comma,
+    // Plus,
+    // Minus,
+    // Star,
+    // Slash,
+    // Bang,
+    // BangEqual,
+    // Equal,
+    // EqualEqual,
+    // Greater,
+    // GreaterEqual,
+    // Less,
+    // LessEqual,
+    // Identifier(String),
+    // StringLiteral(String),
+    // NumberLiteral(f64),
 }
 
+impl fmt::Display for Token {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match *self {
+            Token::EOF => write!(f, "EOF null"),
+            Token::RightParen => write!(f, "RIGHT_PAREN null"),
+            Token::LeftParen => write!(f, "LETF_PAREN null"),
+        }
+    }
+}
+
+
+fn tokenize(lexeme: &str) {
+    for f in lexeme.chars() {
+        match f {
+            '(' => {
+                println!("{}",Token::LeftParen);
+            },
+            ')' => {
+                println!("{}",Token::RightParen);
+            },
+            _ => {
+                println!("{}",Token::EOF);
+            }
+        };
+    }
+}
