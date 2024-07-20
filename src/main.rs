@@ -35,3 +35,12 @@ fn main() {
         }
     }
 }
+
+// <token_type> <lexeme> <literal>
+
+enum Token{
+    EOF,
+
+
+}
+
