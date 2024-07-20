@@ -69,7 +69,7 @@ impl fmt::Display for Token {
             Token::RightParen => write!(f, "RIGHT_PAREN ) null"),
             Token::LeftParen => write!(f, "LEFT_PAREN ( null"),
             Token::RightBrace => write!(f, "RIGHT_BRACE }} null"),
-            Token::LeftBrace => write!(f, "LETF_BRACE {{ null"),
+            Token::LeftBrace => write!(f, "LEFT_BRACE {{ null"),
         }
     }
 }
