@@ -25,13 +25,7 @@ fn main() {
                 String::new()
             });
 
-            // Uncomment this block to pass the first stage
-            if !file_contents.is_empty() {
-                panic!("Scanner not implemented");
-            } else {
-               tokenize(&file_contents); 
-
-            }
+           tokenize(&file_contents); 
         }
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
