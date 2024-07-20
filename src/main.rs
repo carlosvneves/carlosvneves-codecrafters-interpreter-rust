@@ -80,7 +80,7 @@ fn tokenize(lexeme: &str) {
                 println!("{}",Token::RightParen);
             },
             _ => {
-                println!("{}",Token::EOF);
+                // println!("{}",Token::EOF);
             }
         };
     }
