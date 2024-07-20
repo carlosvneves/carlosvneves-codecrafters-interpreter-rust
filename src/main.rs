@@ -64,7 +64,7 @@ impl fmt::Display for Token {
         match *self {
             Token::EOF => write!(f, "EOF null"),
             Token::RightParen => write!(f, "RIGHT_PAREN ) null"),
-            Token::LeftParen => write!(f, "LETF_PAREN ( null"),
+            Token::LeftParen => write!(f, "LEFT_PAREN ( null"),
         }
     }
 }
