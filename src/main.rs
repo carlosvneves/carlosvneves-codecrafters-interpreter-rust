@@ -40,6 +40,9 @@ enum Token{
     EOF,
     RightParen,     
     LeftParen,
+    RightBrace,
+    LeftBrace,
+
     // Dot,
     // Comma,
     // Plus,
@@ -65,6 +68,8 @@ impl fmt::Display for Token {
             Token::EOF => write!(f, "EOF  null"),
             Token::RightParen => write!(f, "RIGHT_PAREN ) null"),
             Token::LeftParen => write!(f, "LEFT_PAREN ( null"),
+            Token::RightBrace => write!(f, "RIGHT_BRACE }} null"),
+            Token::LeftBrace => write!(f, "LETF_BRACE {{ null"),
         }
     }
 }
@@ -78,6 +83,13 @@ fn tokenize(lexeme: &str) {
             },
             ')' => {
                 println!("{}",Token::RightParen);
+            },
+            '{' => {
+                println!("{}", Token::LeftBrace);
+            },
+            '}' =>{
+                println!("{}", Token::RightBrace);
+
             },
             _ => {
             }
