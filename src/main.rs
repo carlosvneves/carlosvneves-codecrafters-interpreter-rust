@@ -82,7 +82,7 @@ impl fmt::Display for Token {
             Token::Dot => write!(f, "DOT . null"),
             Token::Minus => write!(f, "MINUS - null"),
             Token::Plus => write!(f, "PLUS + null"),
-            Token::Semicolon => write!(f, "SEMICOLON null"),
+            Token::Semicolon => write!(f, "SEMICOLON ; null"),
             Token::Star => write!(f, "STAR * null"),
             Token::Slash => write!(f, "SLASH / null"),
 
