@@ -35,13 +35,21 @@ fn main() {
 }
 
 // <token_type> <lexeme> <literal>
-
+//, , ., -, +, ;, *. /
 enum Token{
     EOF,
     RightParen,     
     LeftParen,
     RightBrace,
     LeftBrace,
+    Comma,
+    Dot,
+    Minus,
+    Plus,
+    Semicolon,
+    Star,
+    Slash,
+
 
     // Dot,
     // Comma,
@@ -70,6 +78,14 @@ impl fmt::Display for Token {
             Token::LeftParen => write!(f, "LEFT_PAREN ( null"),
             Token::RightBrace => write!(f, "RIGHT_BRACE }} null"),
             Token::LeftBrace => write!(f, "LEFT_BRACE {{ null"),
+            Token::Comma => write!(f, "COMMA , null"),
+            Token::Dot => write!(f, "DOT . null"),
+            Token::Minus => write!(f, "MINUS - null"),
+            Token::Plus => write!(f, "PLUS + null"),
+            Token::Semicolon => write!(f, "SEMICOLON null"),
+            Token::Star => write!(f, "STAR * null"),
+            Token::Slash => write!(f, "SLASH / null"),
+
         }
     }
 }
@@ -90,6 +106,27 @@ fn tokenize(lexeme: &str) {
             '}' =>{
                 println!("{}", Token::RightBrace);
 
+            },
+            ',' => {
+                println!("{}", Token::Comma);
+            },
+            '.' =>{
+                println!("{}", Token::Dot);
+            },
+            '-' =>{
+                println!("{}", Token::Minus);
+            },
+            '+' =>{
+                println!("{}", Token::Plus);
+            },
+            ';' =>{
+                println!("{}", Token::Semicolon);
+            },
+            '*' =>{
+                println!("{}", Token::Star);
+            },
+            '/' =>{
+                println!("{}", Token::Slash);
             },
             _ => {
             }
