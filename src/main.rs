@@ -129,6 +129,7 @@ fn tokenize(lexeme: &str) {
                 println!("{}", Token::Slash);
             },
             _ => {
+                println!("[line 1] Error: Unexpected character: {}", f);
             }
         };
     }
