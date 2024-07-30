@@ -5,13 +5,13 @@ use std::io::{self, Write};
 
 use std::process;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn main() {
     
 
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
         writeln!(io::stderr(), "Usage: {} tokenize <filename>", args[0]).unwrap();
-        return Ok(());     
+        return ;     
     }
 
     let command = &args[1];
@@ -29,20 +29,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 String::new()
             });
 
-            match tokenize(&file_contents){
-                Ok(_) => {
-                    process::exit(0);
-                },
-                Err(e) => {
-                    writeln!(io::stderr(), "Failed to tokenize: {}", e).unwrap();
-                    process::exit(65);
-                }
-            }
-
+            let _ =tokenize(&file_contents);        
         }
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
-            return Ok(());
+            return ;
         }
     }
 }
