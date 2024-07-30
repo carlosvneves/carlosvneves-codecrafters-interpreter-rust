@@ -61,8 +61,8 @@ enum Token{
     // Minus,
     // Star,
     // Slash,
-    // Bang,
-    // BangEqual,
+    Bang,
+    BangEqual,
     Equal,
     EqualEqual,
     // Greater,
@@ -91,6 +91,8 @@ impl fmt::Display for Token {
             Token::Slash => write!(f, "SLASH / null"),
             Token::Equal => write!(f, "EQUAL = null"),
             Token::EqualEqual => write!(f, "EQUAL_EQUAL == null"),
+            Token::Bang => write!(f, "BANG ! null"),
+            Token::BangEqual => write!(f, "BANG_EQUAL != null"),
 
         }
     }
@@ -152,6 +154,20 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 }
                 
             },
+            '!'=>{
+                if lexeme.chars().count() > 1{
+                    if let Some('=') = chars.peek().cloned() {
+                        chars.next();                         
+                        println!("{}", Token::BangEqual);
+                    } else {
+                        println!("{}", Token::Bang);
+                    }
+                  } else {
+                    println!("{}", Token::Bang);
+                }
+                
+
+            },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
                 status = 65;
@@ -164,3 +180,4 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
 
     process::exit(status);
 }
+
