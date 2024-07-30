@@ -150,6 +150,9 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                     if c == Some('='){
                         println!("{}", Token::EqualEqual);
                     }
+                    else{
+                        println!("{}", Token::Equal);
+                    }
 
                 }
             },
