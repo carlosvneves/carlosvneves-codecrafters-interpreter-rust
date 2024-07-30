@@ -99,7 +99,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
 
     let mut status = 0;
 
-    let mut line = 1;
+    let line = 1;
     for f in lexeme.chars() {
         match f {
             '(' => {
@@ -142,7 +142,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 
             }
         };
-        line+=1;
+        // line+=1;
     }
     println!("{}",Token::EOF);
 
