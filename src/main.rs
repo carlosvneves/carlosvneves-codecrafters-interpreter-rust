@@ -3,11 +3,14 @@ use std::env;
 use std::fs;
 use std::io::{self, Write};
 
-fn main() {
+fn main() -> Result<u8, Box<dyn std::error::Error>> {
+    
+    let mut status:u8 = 0;
+
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
         writeln!(io::stderr(), "Usage: {} tokenize <filename>", args[0]).unwrap();
-        return;
+        return Ok(status);
     }
 
     let command = &args[1];
@@ -25,11 +28,13 @@ fn main() {
                 String::new()
             });
 
-           tokenize(&file_contents); 
+           status = tokenize(&file_contents); 
+
+           return Ok(status);
         }
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
-            return;
+            return Ok(status);
         }
     }
 }
@@ -91,8 +96,9 @@ impl fmt::Display for Token {
 }
 
 
-fn tokenize(lexeme: &str) {
+fn tokenize(lexeme: &str) -> u8{
     let mut line = 1;
+    let mut status = 0;
 
     for f in lexeme.chars() {
         match f {
@@ -132,10 +138,13 @@ fn tokenize(lexeme: &str) {
             },
             _ =>{
                 println!("[line {}] Error: Unexpected character: {}",line, f);
+                status = 65;
                 
             }
         };
         line += 1;
     }
     println!("{}",Token::EOF);
+
+    return status;
 }
