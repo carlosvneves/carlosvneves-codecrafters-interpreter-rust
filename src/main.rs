@@ -104,7 +104,6 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     let line = 1;
     let mut count = 0;
     for f in lexeme.chars() {
-        count+=1;
         match f {
             '(' => {
                 println!("{}",Token::LeftParen);
@@ -163,6 +162,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             }
         };
         // line+=1;
+        count+=1;
     }
     println!("{}",Token::EOF);
 
