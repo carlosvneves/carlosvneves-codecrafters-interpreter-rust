@@ -140,20 +140,15 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 println!("{}", Token::Slash);
             },
             '=' => {
-                
-                if lexeme.chars().count() == 1{
-                    println!("{}", Token::Equal);
-                } else {
-                    let c = lexeme.chars().nth(count);
 
-                    if c == Some('='){
-                        println!("{}", Token::EqualEqual);
-                    }
-                    else{
-                        println!("{}", Token::Equal);
-                    }
-
+                if let Some('=') = lexeme.chars().next() {
+                    println!("{}", Token::EqualEqual);
                 }
+
+                else{
+                    println!("{}", Token::Equal);
+                }
+
             },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
