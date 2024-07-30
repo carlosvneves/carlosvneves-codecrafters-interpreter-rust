@@ -102,7 +102,9 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     let mut status = 0;
 
     let line = 1;
+    let mut count = 0;
     for f in lexeme.chars() {
+        count+=1;
         match f {
             '(' => {
                 println!("{}",Token::LeftParen);
@@ -143,15 +145,12 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 if lexeme.chars().count() == 1{
                     println!("{}", Token::Equal);
                 } else {
+                    let c = lexeme.chars().nth(count+1);
 
-                    if lexeme.chars().nth(1) == Some('=') && lexeme.chars().nth(2) == Some('=') {
-                    
+                    if c == Some('='){
                         println!("{}", Token::EqualEqual);
                     }
-                    else {
-                        
-                        println!("{}", Token::Equal);
-                    }
+
                 }
             },
             _ =>{
