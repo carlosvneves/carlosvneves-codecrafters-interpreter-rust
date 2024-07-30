@@ -151,7 +151,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 
             }
         };
-        line+=1;
+        // line+=1;
     }
     println!("{}",Token::EOF);
 
