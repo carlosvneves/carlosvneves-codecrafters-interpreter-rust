@@ -97,6 +97,8 @@ impl fmt::Display for Token {
 
 fn tokenize(lexeme: &str) -> Result<(), i32>{
 
+    let mut status = 0;
+
     let mut line = 1;
     for f in lexeme.chars() {
         match f {
@@ -136,9 +138,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
-                println!("{}", Token::EOF);
-                process::exit(65);
-                
+                status = 65;
                 
             }
         };
@@ -146,5 +146,5 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     }
     println!("{}",Token::EOF);
 
-    process::exit(0);
+    process::exit(status);
 }
