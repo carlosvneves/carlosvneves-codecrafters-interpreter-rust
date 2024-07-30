@@ -63,8 +63,8 @@ enum Token{
     // Slash,
     // Bang,
     // BangEqual,
-    // Equal,
-    // EqualEqual,
+    Equal,
+    EqualEqual,
     // Greater,
     // GreaterEqual,
     // Less,
@@ -89,6 +89,8 @@ impl fmt::Display for Token {
             Token::Semicolon => write!(f, "SEMICOLON ; null"),
             Token::Star => write!(f, "STAR * null"),
             Token::Slash => write!(f, "SLASH / null"),
+            Token::Equal => write!(f, "EQUAL = null"),
+            Token::EqualEqual => write!(f, "EQUAL_EQUAL == null"),
 
         }
     }
@@ -135,6 +137,13 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             },
             '/' =>{
                 println!("{}", Token::Slash);
+            },
+            '=' => {
+                println!("{}", Token::Equal);
+                
+                if lexeme.chars().nth(1).unwrap() == '=' && lexeme.chars().nth(2).unwrap() != '=' {
+                    println!("{}", Token::EqualEqual);
+                }
             },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
