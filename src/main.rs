@@ -106,7 +106,7 @@ impl fmt::Display for Token {
 
 fn tokenize(lexeme: &str) -> Result<(), i32>{
 
-    let mut line = 1;
+    let mut line = 0;
     for f in lexeme.chars() {
         match f {
             '(' => {
