@@ -144,7 +144,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                     println!("{}", Token::Equal);
                 } else {
 
-                    if lexeme.chars().nth(0) == Some('=') && lexeme.chars().nth(1) == Some('=') {
+                    if lexeme.chars().nth(1) == Some('=') && lexeme.chars().nth(2) == Some('=') {
                     
                         println!("{}", Token::EqualEqual);
                     }
