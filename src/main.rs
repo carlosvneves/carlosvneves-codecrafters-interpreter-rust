@@ -148,7 +148,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                         println!("{}", Token::Equal);
                     }
                   } else {
-                    println!("EQUALS");
+                    println!("{}", Token::Equal);
                 }
                 
             },
