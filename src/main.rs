@@ -143,9 +143,9 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 if lexeme.chars().count() > 1{
                     if let Some('=') = chars.peek().cloned() {
                             chars.next(); // Consume the '='
-                        println!("EQUALS_EQUALS");
+                        println!("{}", Token::EqualEqual);
                     } else {
-                        println!("EQUALS");
+                        println!("{}", Token::Equal);
                     }
                   } else {
                     println!("EQUALS");
