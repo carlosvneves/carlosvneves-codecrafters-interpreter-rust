@@ -65,10 +65,10 @@ enum Token{
     BangEqual,
     Equal,
     EqualEqual,
-    // Greater,
-    // GreaterEqual,
-    // Less,
-    // LessEqual,
+    Greater,
+    GreaterEqual,
+    Less,
+    LessEqual,
     // Identifier(String),
     // StringLiteral(String),
     // NumberLiteral(f64),
@@ -93,6 +93,10 @@ impl fmt::Display for Token {
             Token::EqualEqual => write!(f, "EQUAL_EQUAL == null"),
             Token::Bang => write!(f, "BANG ! null"),
             Token::BangEqual => write!(f, "BANG_EQUAL != null"),
+            Token::Less=> write!(f, "LESS < null"),
+            Token::LessEqual=>write!(f, "LESS_EQUAL <= null"),
+            Token::Greater => write!(f, "GREATER > null"),
+            Token::GreaterEqual =>write!(f, "GREATER_EQUAL >= null"),
 
         }
     }
@@ -165,7 +169,31 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                   } else {
                     println!("{}", Token::Bang);
                 }
-                
+            },
+            '>'=>{
+
+                if lexeme.chars().count() > 1{
+                    if let Some('=') = chars.peek().cloned() {
+                        chars.next();                         
+                        println!("{}", Token::GreaterEqual);
+                    } else {
+                        println!("{}", Token::Greater);
+                    }
+                  } else {
+                    println!("{}", Token::Greater);
+                }
+            },
+            '<'=>{
+                if lexeme.chars().count() > 1{
+                    if let Some('=') = chars.peek().cloned() {
+                        chars.next();                         
+                        println!("{}", Token::LessEqual);
+                    } else {
+                        println!("{}", Token::Less);
+                    }
+                  } else {
+                    println!("{}", Token::Less);
+                }
 
             },
             _ =>{
@@ -181,3 +209,8 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     process::exit(status);
 }
 
+// fn check_composed_ops(prev: char, next: char, current: char) -> String{
+//
+//     retun format!("{}")
+//
+// } 
