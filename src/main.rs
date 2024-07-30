@@ -7,7 +7,6 @@ use std::process;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     
-    let mut status:u8 = 0;
 
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
@@ -146,6 +145,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
+                eprintln!("{}", Token::EOF);
                 process::exit(65);
                 
                 
