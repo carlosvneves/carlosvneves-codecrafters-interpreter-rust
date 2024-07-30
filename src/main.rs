@@ -3,14 +3,16 @@ use std::env;
 use std::fs;
 use std::io::{self, Write};
 
-fn main() -> Result<u8, Box<dyn std::error::Error>> {
+use std::process;
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     
     let mut status:u8 = 0;
 
     let args: Vec<String> = env::args().collect();
     if args.len() < 3 {
         writeln!(io::stderr(), "Usage: {} tokenize <filename>", args[0]).unwrap();
-        return Ok(status);
+        return Ok(());     
     }
 
     let command = &args[1];
@@ -28,13 +30,20 @@ fn main() -> Result<u8, Box<dyn std::error::Error>> {
                 String::new()
             });
 
-           status = tokenize(&file_contents); 
+            match tokenize(&file_contents){
+                Ok(_) => {
+                    process::exit(0);
+                },
+                Err(e) => {
+                    writeln!(io::stderr(), "Failed to tokenize: {}", e).unwrap();
+                    process::exit(65);
+                }
+            }
 
-           return Ok(status);
         }
         _ => {
             writeln!(io::stderr(), "Unknown command: {}", command).unwrap();
-            return Ok(status);
+            return Ok(());
         }
     }
 }
@@ -96,9 +105,8 @@ impl fmt::Display for Token {
 }
 
 
-fn tokenize(lexeme: &str) -> u8{
+fn tokenize(lexeme: &str) -> Result<(), i32>{
     let mut line = 1;
-    let mut status = 0;
 
     for f in lexeme.chars() {
         match f {
@@ -138,7 +146,8 @@ fn tokenize(lexeme: &str) -> u8{
             },
             _ =>{
                 println!("[line {}] Error: Unexpected character: {}",line, f);
-                status = 65;
+                process::exit(65);
+                
                 
             }
         };
@@ -146,5 +155,5 @@ fn tokenize(lexeme: &str) -> u8{
     }
     println!("{}",Token::EOF);
 
-    return status;
+    process::exit(0);
 }
