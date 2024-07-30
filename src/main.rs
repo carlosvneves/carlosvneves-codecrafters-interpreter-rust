@@ -145,7 +145,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 println!("{}", Token::Slash);
             },
             _ =>{
-                println!("[line {}] Error: Unexpected character: {}",line, f);
+                eprintln!("[line {}] Error: Unexpected character: {}",line, f);
                 process::exit(65);
                 
                 
