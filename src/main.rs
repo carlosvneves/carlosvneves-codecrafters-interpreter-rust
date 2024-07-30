@@ -102,8 +102,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     let mut status = 0;
 
     let line = 1;
-    let mut count = 0;
-    let mut chars = lexeme.chars();
+    let mut chars = lexeme.chars().peekable();
     while let Some(f) = chars.next() {
         match f {
             '(' => {
@@ -141,19 +140,17 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 println!("{}", Token::Slash);
             },
             '=' => {
-
-                if lexeme.chars().count() == 1 {
-                    println!("{}", Token::Equal);
-                } else{
-
-                    if let Some('=') = chars.next() {
-                        println!("{}", Token::EqualEqual);
+                if lexeme.chars().count() > 1{
+                    if let Some('=') = chars.peek().cloned() {
+                            chars.next(); // Consume the '='
+                        println!("EQUALS_EQUALS");
+                    } else {
+                        println!("EQUALS");
                     }
-
-                    else{
-                        println!("{}", Token::Equal);
-                    }
-                } 
+                  } else {
+                    println!("EQUALS");
+                }
+                
             },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
@@ -162,7 +159,6 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             }
         };
         // line+=1;
-        count+=1;
     }
     println!("{}",Token::EOF);
 
