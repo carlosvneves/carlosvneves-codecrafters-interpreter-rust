@@ -103,7 +103,8 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
 
     let line = 1;
     let mut count = 0;
-    while Some(f) in lexeme.chars().next() {
+    let mut chars = lexeme.chars();
+    while let Some(f) = chars.next() {
         match f {
             '(' => {
                 println!("{}",Token::LeftParen);
@@ -145,7 +146,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                     println!("{}", Token::Equal);
                 } else{
 
-                    if let Some('=') = f.next() {
+                    if let Some('=') = chars.next() {
                         println!("{}", Token::EqualEqual);
                     }
 
