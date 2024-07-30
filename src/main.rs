@@ -92,6 +92,8 @@ impl fmt::Display for Token {
 
 
 fn tokenize(lexeme: &str) {
+    let mut line = 1;
+
     for f in lexeme.chars() {
         match f {
             '(' => {
@@ -128,10 +130,12 @@ fn tokenize(lexeme: &str) {
             '/' =>{
                 println!("{}", Token::Slash);
             },
-            _ => {
-                println!("[line 1] Error: Unexpected character: {}", f);
+            _ =>{
+                println!("[line {}] Error: Unexpected character: {}",line, f);
+                
             }
         };
+        line += 1;
     }
     println!("{}",Token::EOF);
 }
