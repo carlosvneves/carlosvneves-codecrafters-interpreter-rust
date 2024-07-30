@@ -139,10 +139,13 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 println!("{}", Token::Slash);
             },
             '=' => {
-                println!("{}", Token::Equal);
                 
                 if lexeme.chars().count() > 1 && lexeme.chars().nth(1).unwrap() == '=' {
                     println!("{}", Token::EqualEqual);
+                }
+                else {
+                    
+                    println!("{}", Token::Equal);
                 }
             },
             _ =>{
