@@ -103,7 +103,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
 
     let line = 1;
     let mut count = 0;
-    for f in lexeme.chars() {
+    while Some(f) in lexeme.chars().next() {
         match f {
             '(' => {
                 println!("{}",Token::LeftParen);
@@ -141,14 +141,18 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             },
             '=' => {
 
-                if let Some('=') = lexeme.chars().next() {
-                    println!("{}", Token::EqualEqual);
-                }
-
-                else{
+                if lexeme.chars().count() == 1 {
                     println!("{}", Token::Equal);
-                }
+                } else{
 
+                    if let Some('=') = f.next() {
+                        println!("{}", Token::EqualEqual);
+                    }
+
+                    else{
+                        println!("{}", Token::Equal);
+                    }
+                } 
             },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
