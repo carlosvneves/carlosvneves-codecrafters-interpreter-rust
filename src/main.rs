@@ -140,8 +140,20 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             },
             '=' => {
                 
-                if lexeme.chars().count() > 1 && lexeme.chars().nth(1).unwrap() == '=' {
-                    println!("{}", Token::EqualEqual);
+                if lexeme.chars().count() > 1 {
+                    if lexeme.chars().nth(1) == Some('=') {
+                    
+                        println!("{}", Token::EqualEqual);
+                    }
+                    else if lexeme.chars().nth(2) == Some('=') {
+
+                        println!("{}", Token::Equal);
+                        
+                    }
+                    else {
+                        
+                        println!("{}", Token::Equal);
+                    }
                 }
                 else {
                     
