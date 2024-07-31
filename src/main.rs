@@ -110,11 +110,11 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     // TODO: 
     // implementar vector para fazer push dos tokens
     // refatorar código - DRY para a avaliação de ops compostos com '='
-
+    let mut status:i32 = 0;
     let mut line = 1;
     let mut chars = lexeme.chars().peekable();
     while let Some(f) = chars.next() {
-        let mut status = 0;
+        status = 0;
         match f {
             '(' => {
                 println!("{}",Token::LeftParen);
