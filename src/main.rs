@@ -60,7 +60,6 @@ enum Token{
     // Plus,
     // Minus,
     // Star,
-    // Slash,
     Bang,
     BangEqual,
     Equal,
@@ -147,7 +146,15 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 println!("{}", Token::Star);
             },
             '/' =>{
-                println!("{}", Token::Slash);
+                if lexeme.chars().count() > 1{
+                    if let Some('/') = chars.peek().cloned() {
+                            chars.next(); 
+                    } else {
+                        println!("{}", Token::Slash);
+                    }
+                  } else {
+                    println!("{}", Token::Slash);
+                }
             },
             '=' => {
                 if lexeme.chars().count() > 1{
