@@ -112,7 +112,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     // implementar vector para fazer push dos tokens
     // refatorar código - DRY para a avaliação de ops compostos com '='
 
-    let line = 1;
+    let mut line = 1;
     let mut chars = lexeme.chars().peekable();
     while let Some(f) = chars.next() {
         match f {
@@ -223,13 +223,18 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 status = 0;
 
             },
+            '\n'=>{
+                line+=1;
+                status = 0;
+                
+
+            },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
                 status = 65;
                 
             }
         };
-        // line+=1;
     }
     println!("{}",Token::EOF);
 
