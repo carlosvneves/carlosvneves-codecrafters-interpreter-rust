@@ -68,6 +68,8 @@ enum Token{
     GreaterEqual,
     Less,
     LessEqual,
+    // Tab,
+    // Space
     // Identifier(String),
     // StringLiteral(String),
     // NumberLiteral(f64),
@@ -210,6 +212,14 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                   } else {
                     println!("{}", Token::Less);
                 }
+
+            },
+            ' ' =>{
+                chars.next();
+
+            },
+            '\t'=>{
+                chars.next();
 
             },
             _ =>{
