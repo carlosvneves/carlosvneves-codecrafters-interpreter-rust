@@ -215,11 +215,11 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
 
             },
             ' ' =>{
-                chars.next();
+                // chars.next();
 
             },
             '\t'=>{
-                chars.next();
+                // chars.next();
 
             },
             _ =>{
