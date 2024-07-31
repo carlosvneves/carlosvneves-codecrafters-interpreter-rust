@@ -106,7 +106,6 @@ impl fmt::Display for Token {
 
 fn tokenize(lexeme: &str) -> Result<(), i32>{
 
-    let mut status = 0;
 
     // TODO: 
     // implementar vector para fazer push dos tokens
@@ -115,6 +114,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     let mut line = 1;
     let mut chars = lexeme.chars().peekable();
     while let Some(f) = chars.next() {
+        let mut status = 0;
         match f {
             '(' => {
                 println!("{}",Token::LeftParen);
@@ -216,17 +216,13 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             },
             ' '=>{
 
-                status = 0;
 
             },
             '\t'=>{
-                status = 0;
 
             },
             '\n'=>{
                 line+=1;
-                status = 0;
-                
 
             },
             _ =>{
