@@ -224,12 +224,6 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 line+=1;
 
             },
-            '#'=>{
-
-                eprintln!("[line {}] Error: Unexpected character: {}",line, f);
-                status = 65;
-                
-            },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
                 status = 65;
