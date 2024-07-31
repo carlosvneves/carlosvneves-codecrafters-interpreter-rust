@@ -216,12 +216,10 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             },
             ' '=>{
 
-                //chars.next();
                 status = 0;
 
             },
             '\t'=>{
-                //chars.next();
                 status = 0;
 
             },
