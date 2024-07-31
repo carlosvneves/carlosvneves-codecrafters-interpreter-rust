@@ -153,7 +153,7 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                         // while chars.next() != Some('\n'){
                         //     chars.next(); 
                         // }
-                        break;
+                        // break;
 
                     } else {
                         println!("{}", Token::Slash);
