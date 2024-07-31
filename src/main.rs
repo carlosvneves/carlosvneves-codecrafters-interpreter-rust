@@ -107,6 +107,10 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
 
     let mut status = 0;
 
+    // TODO: 
+    // implementar vector para fazer push dos tokens
+    // refatorar código - DRY para a avaliação de ops compostos com '='
+
     let line = 1;
     let mut chars = lexeme.chars().peekable();
     while let Some(f) = chars.next() {
