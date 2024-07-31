@@ -114,7 +114,6 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
     let mut line = 1;
     let mut chars = lexeme.chars().peekable();
     while let Some(f) = chars.next() {
-        status = 0;
         match f {
             '(' => {
                 println!("{}",Token::LeftParen);
@@ -224,6 +223,12 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
             '\n'=>{
                 line+=1;
 
+            },
+            '#'=>{
+
+                eprintln!("[line {}] Error: Unexpected character: {}",line, f);
+                status = 65;
+                
             },
             _ =>{
                 eprintln!("[line {}] Error: Unexpected character: {}",line, f);
