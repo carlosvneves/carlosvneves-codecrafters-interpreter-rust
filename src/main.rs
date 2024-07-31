@@ -151,10 +151,10 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
                 if lexeme.chars().count() > 1{
                     if let Some('/') = chars.peek().cloned() {
                         
-                        while chars.next() != Some('\n'){
-                            chars.next(); 
-                        }
-                        // break;
+                        // while chars.next() != Some('\n'){
+                        //     chars.next(); 
+                        // }
+                        break;
 
                     } else {
                         println!("{}", Token::Slash);
