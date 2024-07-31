@@ -215,10 +215,19 @@ fn tokenize(lexeme: &str) -> Result<(), i32>{
 
             },
             '\u{20}' =>{
+                char.next();
                 status = 0;
 
             },
+            ' '=>{
+
+                char.next();
+                status = 0;
+
+            }
+            ,
             '\t'=>{
+                char.next();
                 status = 0;
 
             },
