@@ -66,7 +66,7 @@ enum Token {
     // Tab,
     // Space
     // Identifier(String),
-    // StringLiteral(String),
+    StringLiteral,
     // NumberLiteral(f64),
 }
 
@@ -93,6 +93,7 @@ impl fmt::Display for Token {
             Token::LessEqual => write!(f, "LESS_EQUAL <= null"),
             Token::Greater => write!(f, "GREATER > null"),
             Token::GreaterEqual => write!(f, "GREATER_EQUAL >= null"),
+            Token::StringLiteral => write!(f, "STRING"),
         }
     }
 }
@@ -105,13 +106,43 @@ fn tokenize(lexeme: &str) -> Result<(), i32> {
     let mut line = 1;
     let mut chars = lexeme.chars().peekable();
     let lexeme_size = lexeme.chars().count();
+    let mut is_string = false;
+    let mut is_malformed_string = true;
 
     while let Some(f) = chars.next() {
         match f {
+            '"' =>{
+                
+                is_string = true;
+                
+
+                let mut string = String::new();
+                
+                while let Some(c) = chars.next() {
+                    if c == '"' {
+                        is_malformed_string = false;
+                        println!("{} \"{}\" {}", Token::StringLiteral, string, string);
+                        string.clear();
+                        is_string = false;
+                        break;
+                    }
+                    string.push(c);
+                    
+                    // is there a next f?
+                    if chars.peek().is_none() {
+                        is_string = true;
+                        is_malformed_string = true;
+                        eprintln!("[line {}] Error: Unterminated string.", line);
+                        status = 65;
+                        break;
+                    }
+                    
+                }
+            }
             '(' => {
                 println!("{}", Token::LeftParen);
             }
-            ')' => {
+            ')' => { 
                 println!("{}", Token::RightParen);
             }
             '{' => {
@@ -208,6 +239,18 @@ fn tokenize(lexeme: &str) -> Result<(), i32> {
                 line += 1;
             }
             _ => {
+                // if is_string && is_malformed_string  {
+                //
+                //     eprintln!("[line {}] Error: Unterminated string.", line);
+                //     status = 65;
+                //
+                // } else if !is_string {
+                //
+                //     eprintln!("[line {}] Error: Unexpected character: {}", line, f);
+                //     status = 65;
+                // } else {
+                //     continue;
+                // }
                 eprintln!("[line {}] Error: Unexpected character: {}", line, f);
                 status = 65;
             }
@@ -218,12 +261,3 @@ fn tokenize(lexeme: &str) -> Result<(), i32> {
     process::exit(status);
 }
 
-// fn check_composed_ops(prev: char, next: char, current: char) -> String{
-//
-//     retun format!("{}")
-//
-// }
-
-// fn is_at_end(size: i32, pos: i32) -> bool {
-//     return true;
-// }
