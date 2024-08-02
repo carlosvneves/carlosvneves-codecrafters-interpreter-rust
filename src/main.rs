@@ -1,5 +1,6 @@
 use core::fmt;
 use std::env;
+use std::fmt::format;
 use std::fs;
 use std::io::{self, Write};
 
@@ -50,7 +51,6 @@ enum Token {
     Star,
     Slash,
 
-    // Dot,
     // Comma,
     // Plus,
     // Minus,
@@ -67,7 +67,7 @@ enum Token {
     // Space
     // Identifier(String),
     StringLiteral,
-    // NumberLiteral(f64),
+    NumberLiteral,
 }
 
 impl fmt::Display for Token {
@@ -94,6 +94,7 @@ impl fmt::Display for Token {
             Token::Greater => write!(f, "GREATER > null"),
             Token::GreaterEqual => write!(f, "GREATER_EQUAL >= null"),
             Token::StringLiteral => write!(f, "STRING"),
+            Token::NumberLiteral => write!(f, "NUMBER"),
         }
     }
 }
@@ -106,32 +107,37 @@ fn tokenize(lexeme: &str) -> Result<(), i32> {
     let mut line = 1;
     let mut chars = lexeme.chars().peekable();
     let lexeme_size = lexeme.chars().count();
-    let mut is_string = false;
-    let mut is_malformed_string = true;
+
+    let mut _is_malformed_string: bool;
+    let mut _is_string:bool;
+    let mut _is_digit:bool = false;
 
     while let Some(f) = chars.next() {
+
         match f {
             '"' =>{
                 
-                is_string = true;
-                
+                // let mut is_string = true;
+                // let mut is_malformed_string = true;
+                _is_string = true; 
+                _is_malformed_string = true;
 
                 let mut string = String::new();
                 
                 while let Some(c) = chars.next() {
                     if c == '"' {
-                        is_malformed_string = false;
+                        _is_malformed_string = false;
                         println!("{} \"{}\" {}", Token::StringLiteral, string, string);
                         string.clear();
-                        is_string = false;
+                        _is_string = false;
                         break;
                     }
                     string.push(c);
                     
                     // is there a next f?
                     if chars.peek().is_none() {
-                        is_string = true;
-                        is_malformed_string = true;
+                        // _is_string = true;
+                        // _is_malformed_string = true;
                         eprintln!("[line {}] Error: Unterminated string.", line);
                         status = 65;
                         break;
@@ -237,22 +243,90 @@ fn tokenize(lexeme: &str) -> Result<(), i32> {
             '\t' => {}
             '\n' => {
                 line += 1;
+            },
+            '0'..='9' => {
+                let _is_digit: bool;
+
+                let mut string = String::new();
+                string.push(f);
+
+                while let Some(c) = chars.next() {
+                    string.push(c);
+                    if chars.peek().is_none() {
+                        _is_digit = false;
+                        
+                        let mut _last_is_dot = string.chars().last().unwrap() == '.';
+                        let _dot_count = string.matches('.').count(); 
+                        let parts: Vec<&str> = string.split(".").collect();
+
+                        
+                        let mut  string:String;
+                        let mut number_literal;                         
+                        
+
+                        if parts.len() == 1 {
+                            
+                            string = format!("{}", parts[0]);
+                            number_literal = format!("{}.0", parts[0]);                         
+                            println!("{} {} {}", Token::NumberLiteral, string, number_literal);
+                        }
+                        else{
+
+                            for idx in 0..parts.len()-1{
+                                    
+                                string = format!("{}.{}", parts[idx], parts[idx+1]);
+                                number_literal = string.clone();
+                                println!("{} {} {}", Token::NumberLiteral, string, number_literal);
+                            }
+    
+                        }
+
+
+
+
+                        // for (idx,p) in parts.clone().into_iter().enumerate() {
+                        //
+                        //     if idx < parts.len() - 1 {
+                        //         
+                        //         if parts.len() == 1 {
+                        //             string = format!("{}", parts[0]);
+                        //             number_literal = format!("{}.0", parts[0]);                         
+                        //         } else if p!= "" {
+                        //             string = format!("{}.{}", p, parts[idx+1]);
+                        //             number_literal = string.clone();
+                        //         } else{
+                        //             string = format!("{}.{}", p, parts[idx+1]);
+                        //             number_literal = format!("{}.{}", p, parts[idx+1]);
+                        //                 
+                        //         } 
+                        //     }  
+                        //         
+                        // }
+                        //                         
+                        // 
+                        if _last_is_dot {
+                            println!("{}", Token::Dot);
+                            _last_is_dot = false;
+                        }
+                        break;
+                    }
+                }
+
             }
             _ => {
-                // if is_string && is_malformed_string  {
-                //
-                //     eprintln!("[line {}] Error: Unterminated string.", line);
-                //     status = 65;
-                //
-                // } else if !is_string {
-                //
-                //     eprintln!("[line {}] Error: Unexpected character: {}", line, f);
-                //     status = 65;
-                // } else {
-                //     continue;
-                // }
+
                 eprintln!("[line {}] Error: Unexpected character: {}", line, f);
                 status = 65;
+                // if f == '.' && _is_digit {
+                //     continue;
+                // 
+                // } else if f == '.' && !_is_digit {
+                //     println!("{}", Token::Dot);
+                // }
+                // else{
+                //     eprintln!("[line {}] Error: Unexpected character: {}", line, f);
+                //     status = 65;
+                // }
             }
         };
     }
